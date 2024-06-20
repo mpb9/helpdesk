@@ -26,52 +26,33 @@ class Home extends React.Component {
       alert("Please fill all the fields");
       return;
     } else {
-      // Get number of tickets
       fetch("http://localhost:8080/api/tickets", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          id: this.state.ticketId,
+          name: this.state.name,
+          email: this.state.email,
+          dsc: this.state.dsc,
+          status: this.state.status,
+        }),
       })
         .then((response) => response.json())
         .then((data) => {
-          let ticketId = data.length + 1;
+          console.log("Success:", data);
+          alert("Ticket Submitted Successfully");
           this.setState({
-            ticketId: ticketId.toString(),
+            name: "",
+            email: "",
+            dsc: "",
           });
-
-          fetch("http://localhost:8080/api/tickets", {
-            method: "POST",
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              id: this.state.ticketId,
-              name: this.state.name,
-              email: this.state.email,
-              dsc: this.state.dsc,
-              status: this.state.status,
-            }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("Success:", data);
-              alert("Ticket Submitted Successfully");
-              this.setState({
-                name: "",
-                email: "",
-                dsc: "",
-              });
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-              alert("Error in submitting ticket");
-            });
         })
         .catch((error) => {
           console.error("Error:", error);
+          alert("Error in submitting ticket");
         });
     }
     console.log(this.state);
