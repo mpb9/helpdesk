@@ -1,19 +1,28 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
+import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Admin from "./components/Admin";
 import Home from "./components/Home";
 
 function App() {
   return (
-    <div className="App">
-      <div className="App-header">
-        <h2>Home</h2>
-        <h2 className="App-admin">Admin</h2>
+    <Router>
+      <div className="App">
+        <div className="App-header">
+          <Link to="/">
+            <h2>Home</h2>
+          </Link>
+          <Link to="/admin">
+            <h2 className="App-admin">Admin</h2>
+          </Link>
+        </div>
       </div>
-      <Home></Home>
-      <Admin></Admin>
-    </div>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </Router>
   );
 }
 

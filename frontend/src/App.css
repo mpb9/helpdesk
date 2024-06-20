@@ -17,13 +17,18 @@
 .App-header h2 {
   margin: 0;
   padding-right: 25px;
+  color: white;
 }
 
 .App-header h2:hover {
   cursor: pointer;
-  color: blue;
+  color: blue !important;
 }
 
 .App-admin {
-  color: grey;
+  color: grey !important;
+}
+
+a {
+  text-decoration: none;
 }
