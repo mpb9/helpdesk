@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import Button from "react-bootstrap/esm/Button";
 import "./Admin.css";
 
 class Admin extends React.Component {
@@ -49,6 +50,11 @@ class Admin extends React.Component {
     }
   }
 
+  handleEmailSubmit(event) {
+    event.preventDefault();
+    console.log("EMAIL: " + event.target.response.value);
+  }
+
   componentDidMount() {
     fetch("http://localhost:8080/api/tickets")
       .then((response) => response.json())
@@ -72,7 +78,7 @@ class Admin extends React.Component {
               <th>Email</th>
               <th>Description</th>
               <th>Status</th>
-              <th></th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -83,8 +89,26 @@ class Admin extends React.Component {
                 <td>{ticket.email}</td>
                 <td>{ticket.dsc}</td>
                 <td>{ticket.status}</td>
-                <td>
-                  <DropdownButton id="dropdown-basic-button" title="Update Status">
+                <td
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    borderBottom: "0px !important",
+                    borderLeft: "0px",
+                    borderTop: "1px",
+                  }}
+                >
+                  <DropdownButton id="dropdown-basic-button" title="Respond" style={{ marginRight: "15px" }}>
+                    <form style={{ padding: "5px" }} onSubmit={this.handleEmailSubmit}>
+                      <label>
+                        <textarea name="response" placeholder="Email Body" rows={5}></textarea>
+                      </label>
+                      <Button id="dropdown-basic-button" type="submit" value="Submit">
+                        Submit
+                      </Button>
+                    </form>
+                  </DropdownButton>
+                  <DropdownButton id="dropdown-basic-button" title="Update">
                     <Dropdown.Item onClick={() => this.handleStatusChange("new", ticket)}>new</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.handleStatusChange("in progress", ticket)}>in progress</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.handleStatusChange("resolved", ticket)}>resolved</Dropdown.Item>
