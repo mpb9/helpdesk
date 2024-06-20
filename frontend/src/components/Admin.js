@@ -52,7 +52,7 @@ class Admin extends React.Component {
 
   handleEmailSubmit(event) {
     event.preventDefault();
-    console.log("EMAIL: " + event.target.response.value);
+    console.log("Would normally send email here with body: " + event.target.response.value);
   }
 
   componentDidMount() {
