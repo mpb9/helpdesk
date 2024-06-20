@@ -34,6 +34,16 @@ public class TicketController {
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
 
+    @GetMapping(name = "Get number of Tickets", value = "/count", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> getCountTickets() {
+        logger.info("Entering getCountTickets...");
+
+        Integer ticketCount = ticketService.getCountTickets();
+
+        logger.info("\nticketCount: {}", ticketCount);
+        return new ResponseEntity<>(ticketCount, HttpStatus.OK);
+    }
+
     // PUT REQUESTS
     @PutMapping(name = "Update Ticket", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket) {

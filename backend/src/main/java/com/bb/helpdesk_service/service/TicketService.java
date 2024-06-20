@@ -24,6 +24,14 @@ public class TicketService {
         return ticketRepository.findAllByOrderById();
     }
 
+    public Integer getCountTickets() {
+        logger.info("Entering getCountTicketsByUserId...");
+
+        List<Ticket> ticketList = getAllTickets();
+
+        return ticketList.size();
+    }
+
     // PUT REQUESTS
     public Ticket updateTicket(Ticket ticket) {
         logger.info("Entering updateTicket...");
@@ -34,6 +42,9 @@ public class TicketService {
     // POST REQUESTS
     public Ticket createTicket(Ticket ticket) {
         logger.info("Entering createTicket...");
+
+        Integer countTickets = getCountTickets();
+        ticket.setId(String.valueOf(countTickets + 1));
 
         return ticketRepository.save(ticket);
     }
